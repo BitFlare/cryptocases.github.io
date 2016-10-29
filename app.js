@@ -10,7 +10,7 @@ var config = {
   // - For your faucet to work, you must register your site at Recaptcha
   // - https://www.google.com/recaptcha/intro/index.html
   recaptcha_sitekey: '6LdKBAoUAAAAAOI4O57xyV3LPJ02sjvJxPOEL4_P',  // <----- EDIT ME!
-  redirect_uri: 'http://cryptocases.github.io',
+  redirect_uri: 'http://cryptocases.pw',
   mp_browser_uri: 'https://www.moneypot.com',
   mp_api_uri: 'https://api.moneypot.com',
   chat_uri: 'https://socket.moneypot.com',
@@ -2127,43 +2127,23 @@ var $cardList 	= $('.cardList').first(),
 	  {className: 'B'},
 	  el.div(
 	  {className: 'b'},
-	  el.img(
-	  {src: 'http://bitsino.xyz/images/vlcase.png',
-	  width: '200'}
-	  
-	  )
+	  'VL'
 	  ),
 	  el.div(
 	  {className: 'b'},
-	  el.img(
-	  {src: 'http://bitsino.xyz/images/lcase.png',
-	  width: '200'}
-	  
-	  )
+	  'L'
 	  ),
 	  el.div(
 	  {className: 'b'},
-	  el.img(
-	  {src: 'http://bitsino.xyz/images/mcase.png',
-	  width: '200'}
-	  
-	  )
+	  'M'
 	  ),
 	  el.div(
 	  {className: 'b'},
-	  el.img(
-	  {src: 'http://bitsino.xyz/images/hcase.png',
-	  width: '200'}
-	  
-	  )
+	  'H'
 	  ),
 	  el.div(
 	  {className: 'b'},
-	  el.img(
-	  {src: 'http://bitsino.xyz/images/vhcase.png',
-	  width: '200'}
-	  
-	  )
+	  'VH'
 	  )
 	  ),
 	  el.div(
