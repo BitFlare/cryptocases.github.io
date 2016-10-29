@@ -1,0 +1,138 @@
+body {
+    margin-top: 20px;
+}
+
+.navbar .navbar-brand {
+    color: #777777;
+}
+.navbar .brand-name:hover {
+    text-decoration: underline;
+}
+
+/* ChatBox */
+.panel-body, .col-sm-7, .panel, .panel-default, .panel-footer, .list-unstyled, .chat-list {
+background-color: black;
+outline: black;
+
+}
+
+.col-sm-7 {
+	left: 14.3%;
+
+}
+
+#chat-input {
+	
+	  text-align: center;
+  box-shadow: inset 0 0 0 1px rgba(64,64,64,1);
+  outline: 0;
+  border: 0;
+  background: 0;
+  color: rgba(128,128,128,1);
+  width: 1200px;
+  height: 50px;
+  transition: all .25s;
+}
+
+.chat-list {
+    overflow-y: hidden;
+	overflow-x: hidden;
+    height: 215px;
+    word-wrap: break-word;
+    background-color: black;
+}
+
+.chat-list li {
+    /* Since .focus() is used to scroll to last message item,
+       turn off the outline that appears by default */
+    outline: none;
+}
+
+/* Animation */
+
+* { box-sizing: border-box; padding: 0; margin: 0; }
+.cardList { 
+    height: 100px; width: 302px; position: relative;
+    margin: 10px; border: 1px solid black; 
+    overflow: hidden; white-space: nowrap; 
+	display: block;
+    margin: auto;
+}
+.card { 
+    display: inline-block; text-align: center;
+    height: 100px; width: 100px; line-height: 100px;
+    background-color: rgba(128,128,128,1);
+    font-family: monospace; font-size: 2em; color: #444;
+    border-left: 1px solid #323131; border-right: 1px solid #323131;
+}
+.cardList::before, .cardList::after {
+    content: ''; display: block; z-index: 100;
+    width: 0px; height: 0px; transform: translateX(-50%);
+	border-left: 8px solid transparent;
+	border-right: 8px solid transparent;    
+}
+.cardList::before {
+    position: absolute; top: 0px; left: 50%;
+	border-top: 12px solid #323131;
+}
+.cardList::after {
+    position: absolute; bottom: 0px; left: 50%;
+	border-bottom: 12px solid #323131;
+}
+div.controls, button { margin: 10px; padding: 8px; font-family: monospace; }
+div.controls input { width: 48px; padding: 2px; text-align: center; font-family: monospace; }
+
+
+.rotate {
+    display: inline-block;
+    -webkit-animation-name: rotate;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: rotate;
+    -moz-animation-duration: 2s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+    -o-animation-name: rotate;
+    -o-animation-duration: 2s;
+    -o-animation-iteration-count: infinite;
+    -o-animation-timing-function: linear;
+    animation-name: rotate;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+@-webkit-keyframes rotate {
+    from {-webkit-transform: rotate(0deg);}
+    to {-webkit-transform: rotate(360deg);}
+}
+
+@-moz-keyframes rotate {
+    from {-moz-transform: rotate(0deg);}
+    to {-moz-transform: rotate(360deg);}
+}
+
+@-o-keyframes rotate {
+    from {-moz-transform: rotate(0deg);}
+    to {-moz-transform: rotate(360deg);}
+}
+
+@keyframes rotate {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+}
+
+/* Bootstrap overrides */
+
+/* Turn off redundant text-shadow */
+.btn kbd,
+.btn .label {
+    text-shadow: none;
+}
+
+/* Progress Bar */
+
+.progress-bar-grey {
+    background-color: #767676;
+    background-image: none;
+}
