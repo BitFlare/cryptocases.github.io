@@ -9,7 +9,7 @@ var config = {
   app_name: 'CryptoCases',
   // - For your faucet to work, you must register your site at Recaptcha
   // - https://www.google.com/recaptcha/intro/index.html
-  recaptcha_sitekey: '6LdKBAoUAAAAAOI4O57xyV3LPJ02sjvJxPOEL4_P',  // <----- EDIT ME!
+  recaptcha_sitekey: '6LempwoUAAAAAFt-1xHrOrQFZs-nZbWaJhYtvBc9',  // <----- EDIT ME!
   redirect_uri: 'http://cryptocases.pw',
   mp_browser_uri: 'https://www.moneypot.com',
   mp_api_uri: 'https://api.moneypot.com',
