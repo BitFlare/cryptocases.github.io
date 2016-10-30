@@ -676,6 +676,33 @@ function correctCaptcha(a) {
     })
 }
 
+function escapeHTML(a) {
+    a += "";
+    for (var b = "", c = 0; c < a.length; c++) b += "<" === a[c] ? "&lt;" : ">" === a[c] ? "&gt;" : "'" === a[c] ? "&#39;" : '"' === a[c] ? "&#34;" : "%" === a[c] ? "&#37;" : "\\" === a[c] ? "&#92;" : "¢" === a[c] ? "&#162;" : "¼" === a[c] ? "&#188;" : "½" === a[c] ? "&#189;" : "¾" === a[c] ? "&#190;" : "#" === a[c] ? "&#35;" : "&" === a[c] && "#" === a[c + 1] ? "&#38;" : a[c];
+    return b
+}
+
+function addNewChatMessage(a) {
+    if ("undefined" != typeof a.user && "undefined" != typeof a.channel) var b = escapeHTML(a.user.uname),
+        c = a.user.role;
+    else var b = "Server",
+        c = "server";
+    var d = {
+            hours: new Date(a.created_at).getHours(),
+            mins: new Date(a.created_at).getMinutes()
+        },
+        e = escapeHTML(a.text);
+    var f = !1;
+    "" != $("#username").text() && e.indexOf("@" + $("#username").text()) > -1 && (b != $("#username").text() && (f = !0), e = e.replace("@" + $("#username").text(), "<span class='notify'>@" + $("#username").text() + "</span>"));
+    var g = document.getElementById("chatMonitor"),
+        h = "Server" == b ? "style='color:lime;font-weight:bold;'" : "",
+        i = "OWNER" == c ? "style='color:#E74C3C;" : "ADMIN" == c ? "style='color:#EC87C0;" : "MOD" == c ? "style='color:#2ECC71;" : "style='";
+    var j = document.getElementsByClassName("chatMessage");
+    j.length > 120 && g.removeChild(j[0]), $(".safeLink").click(function() {
+        var a = $(this).text();
+    })
+}
+
 ////////////////////////////////////////////////////////////
 
 var UserBox = React.createClass({
