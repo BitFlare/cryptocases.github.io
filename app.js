@@ -741,11 +741,35 @@ var UserBox = React.createClass({
     windowRef.focus();
     return false;
   },
+  _onRecaptchaSubmit: function(response) {
+    var self = this;
+    console.log('recaptcha submitted: ', response);
+
+    self.setState({ faucetState: 'WAITING_FOR_SERVER' });
+
+    MoneyPot.claimFaucet(response, {
+      // `data` is { claim_id: Int, amount: Satoshis }
+      success: function(data) {
+        Dispatcher.sendAction('UPDATE_USER', {
+          balance: worldStore.state.user.balance + data.amount
+        });
+		alert("You have claimed faucet.");
+        // self.props.faucetClaimedAt.update(function() {
+        //   return new Date();
+        // });
+      },
+      error: function(xhr, textStatus, errorThrown) {
+        if (xhr.responseJSON && xhr.responseJSON.error === 'FAUCET_ALREADY_CLAIMED') {
+          alert('You already claimed faucet in last 5 minutes.');
+        }
+      }
+    });
+  },
   _showFaucet: function() {
 	  document.getElementById("faucetClaimCaptcha").innerHTML = "";
 	      grecaptcha.render("faucetClaimCaptcha", {
         sitekey: "6LempwoUAAAAAFt-1xHrOrQFZs-nZbWaJhYtvBc9",
-        callback: correctCaptcha
+        callback: this._onRecaptchaSubmit
     })
 	document.getElementById("faucetClaimCaptcha").style = "top: 100px; position: absolute; right: 41%;"
   },
