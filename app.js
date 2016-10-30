@@ -633,6 +633,8 @@ var worldStore = new Store('world', {
 
 });
 
+
+
 ////////////////////////////////////////////////////////////
 function correctCaptcha(a) {
     $.ajax({
@@ -683,7 +685,9 @@ function escapeHTML(a) {
 }
 
 function addNewChatMessage(a) {
-    if ("undefined" != typeof a.user && "undefined" != typeof a.channel) var b = escapeHTML(a.user.uname),
+	console.log(a);
+	alert(a.text)
+   /*if ("undefined" != typeof a.user && "undefined" != typeof a.channel) var b = escapeHTML(a.user.uname),
         c = a.user.role;
     else var b = "Server",
         c = "server";
@@ -700,7 +704,7 @@ function addNewChatMessage(a) {
     var j = document.getElementsByClassName("chatMessage");
     j.length > 120 && g.removeChild(j[0]), $(".safeLink").click(function() {
         var a = $(this).text();
-    })
+    })*/
 }
 
 ////////////////////////////////////////////////////////////
@@ -2934,9 +2938,8 @@ var App = React.createClass({
 		React.createElement(ChatBox, null)
 		),
 		 el.div(
-	  {style: {backgroundColor: 'red'},
-	  id: 'faucetClaimCaptcha'},
-	  'aaaaaaaaaaaa'
+	  {id: 'faucetClaimCaptcha'},
+	  ''
 	  )
 		)
     );

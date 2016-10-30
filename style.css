@@ -55,8 +55,7 @@ outline: black;
     height: 100px; width: 302px; position: relative;
     margin: 10px; border: 1px solid black; 
     overflow: hidden; white-space: nowrap; 
-	display: block;
-    margin: auto;
+	right: -41%;
 }
 .card { 
     display: inline-block; text-align: center;
