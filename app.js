@@ -522,7 +522,7 @@ var worldStore = new Store('world', {
   accessToken: access_token,
   isRefreshingUser: false,
   hotkeysEnabled: false,
-  currTab: 'ALL_BETS',
+  currTab: 'FAUCET',
   // TODO: Turn this into myBets or something
   bets: new CBuffer(config.bet_buffer_size),
   // TODO: Fetch list on load alongside socket subscription
@@ -634,7 +634,47 @@ var worldStore = new Store('world', {
 });
 
 ////////////////////////////////////////////////////////////
-
+function correctCaptcha(a) {
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "https://api.moneypot.com/v1/claim-faucet?access_token=" + access_token,
+        data: JSON.stringify({
+            response: a
+        }),
+        dataType: "json"
+    }).done(function(a) {
+        return "undefined" != typeof a.error ? "FAUCET_ALREADY_CLAIMED" == a.error ? (console.error("Faucet already claimed"), addNewChatMessage({
+            created_at: (new Date).toISOString(),
+            text: "You already claimed the faucet. (All moneypot apps shares the same faucet and therefore the same timer)"
+        }), void grecaptcha.reset()) : "INVALID_INPUT_RESPONSE" == a.error ? (console.error("Google has rejected the response. Try to refresh and do again."), addNewChatMessage({
+            created_at: (new Date).toISOString(),
+            text: "(faucet) Google has rejected the response. Try to refresh and do again."
+        }), void grecaptcha.reset()) : (console.error(a.error), addNewChatMessage({
+            created_at: (new Date).toISOString(),
+            text: "(faucet) An error occured. Be sure you haven't already claimed a moneypot app's faucet within 5 mins."
+        }), void grecaptcha.reset()) : (console.log(a.amount / 100 + " bits has been added to your balance!"), addNewChatMessage({
+            created_at: (new Date).toISOString(),
+            text: a.amount / 100 + " bits has been added to your balance!"
+        }), $.get("https://api.moneypot.com/v1/auth?access_token=" + access_token, function(a) {
+            "undefined" != typeof a.user.uname && (user_balance = a.user.balance / 100, $("#balance").text(user_balance.formatMoney(2, ".", ",")))
+        }), $("#faucetClaimCaptcha").css("top", "-90px"), grecaptcha.reset(), showingrecaptcha = !1, claimedTime = (new Date).getTime(), faucetTimer = setInterval(function() {
+            return parseInt(claimedTime) + 3e5 <= (new Date).getTime() ? ($("#faucetButton").removeClass("claimed"), clearInterval(faucetTimer), claimedTime = !1, $("#faucetButton").attr("disabled", !1), void $("#faucetButton").text("FAUCET")) : ($("#faucetButton").attr("disabled", !0), $("#faucetButton").addClass("claimed"), $("#faucetButton").text(parseFloat(300 - ((new Date).getTime() - claimedTime) / 1e3).formatMoney(2, ".", ",")), void 0)
+        }, 100), "undefined" != $.cookie("faucetClaim") && $.removeCookie("faucetClaim"), void $.cookie("faucetClaim", claimedTime))
+    }).fail(function(a) {
+        var b = a.error;
+        "FAUCET_ALREADY_CLAIMED" == b ? (console.error("Faucet already claimed"), addNewChatMessage({
+            created_at: (new Date).toISOString(),
+            text: "You already claimed the faucet. (All moneypot apps shares the same faucet and therefore the same timer)"
+        }), grecaptcha.reset()) : "INVALID_INPUT_RESPONSE" == b ? (console.error("Google has rejected the response. Try to refresh and do again."), addNewChatMessage({
+            created_at: (new Date).toISOString(),
+            text: "(faucet) Google has rejected the response. Try to refresh and do again."
+        }), grecaptcha.reset()) : (console.error(b), addNewChatMessage({
+            created_at: (new Date).toISOString(),
+            text: "(faucet) An error occured. Be sure you haven't already claimed a moneypot app's faucet within 5 mins."
+        }), grecaptcha.reset()), document.getElementById("faucetClaimCaptcha").style = "top: -100px; position: absolute; right: 41%;", showingrecaptcha = !1
+    })
+}
 
 ////////////////////////////////////////////////////////////
 
@@ -670,6 +710,17 @@ var UserBox = React.createClass({
     windowRef.focus();
     return false;
   },
+  _showFaucet: function() {
+	  document.getElementById("faucetClaimCaptcha").innerHTML = "";
+	      grecaptcha.render("faucetClaimCaptcha", {
+        sitekey: "6LempwoUAAAAAFt-1xHrOrQFZs-nZbWaJhYtvBc9",
+        callback: correctCaptcha
+    })
+	document.getElementById("faucetClaimCaptcha").style = "top: 100px; position: absolute; right: 41%;"
+  },
+  
+  
+  
   _openDepositPopup: function() {
     var windowUrl = config.mp_browser_uri + '/dialog/deposit?app_id=' + config.app_id;
     var windowName = 'manage-auth';
@@ -712,7 +763,9 @@ var UserBox = React.createClass({
 		'Withdraw'
 		),
 		el.div(
-		{className: 'a'},
+		{id: 'faucetButton',
+			className: 'a',
+		onClick: this._showFaucet},
 		'Faucet'
 		),	  
         el.div(
@@ -1596,7 +1649,7 @@ var n = this,
     j = (j = i.length) > 3 ? j % 3 : 0;
    return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
  };
-
+ 
 var BetBox = React.createClass({
   displayName: 'BetBox',
   _onStoreChange: function() {
@@ -2103,7 +2156,6 @@ var $cardList 	= $('.cardList').first(),
     return el.div(
       null,  
 	  el.div(
-	  
 	  {className: 'cardList'},
 	  el.div(
 	  {className: 'card',
@@ -2354,30 +2406,6 @@ var Tabs = React.createClass({
   render: function() {
     return el.ul(
       {className: 'nav nav-tabs'},
-      el.li(
-        {className: worldStore.state.currTab === 'ALL_BETS' ? 'active' : ''},
-        el.a(
-          {
-            href: 'javascript:void(0)',
-            onClick: this._makeTabChangeHandler('ALL_BETS')
-          },
-          'All Bets'
-        )
-      ),
-      // Only show MY BETS tab if user is logged in
-      !worldStore.state.user ? '' :
-        el.li(
-          {className: worldStore.state.currTab === 'MY_BETS' ? 'active' : ''},
-          el.a(
-            {
-              href: 'javascript:void(0)',
-              onClick: this._makeTabChangeHandler('MY_BETS')
-            },
-            'My Bets'
-          )
-        ),
-      // Display faucet tab even to guests so that they're aware that
-      // this casino has one.
       !config.recaptcha_sitekey ? '' :
         el.li(
           {className: worldStore.state.currTab === 'FAUCET' ? 'active' : ''},
@@ -2570,7 +2598,7 @@ var FaucetTabContent = React.createClass({
     switch(this.state.faucetState) {
     case 'SHOW_RECAPTCHA':
       innerNode = el.div(
-        { id: 'recaptcha-target' },
+        { id: 'recaptchafaucet' },
         !!worldStore.state.grecaptcha ? '' : 'Loading...'
       );
       break;
@@ -2585,13 +2613,13 @@ var FaucetTabContent = React.createClass({
     case 'ALREADY_CLAIMED':
       innerNode = el.div(
         null,
-        'ALREADY_CLAIMED'
+        'You already claimed faucet.'
       );
       break;
     case 'WAITING_FOR_SERVER':
       innerNode = el.div(
         null,
-        'WAITING_FOR_SERVER'
+        'Loading...'
       );
       break;
     default:
@@ -2877,7 +2905,12 @@ var App = React.createClass({
 		el.div(
 		{className: 'col-sm-7'},
 		React.createElement(ChatBox, null)
-		)
+		),
+		 el.div(
+	  {style: {backgroundColor: 'red'},
+	  id: 'faucetClaimCaptcha'},
+	  'aaaaaaaaaaaa'
+	  )
 		)
     );
   }
