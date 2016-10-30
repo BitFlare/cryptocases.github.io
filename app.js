@@ -757,10 +757,12 @@ var UserBox = React.createClass({
         // self.props.faucetClaimedAt.update(function() {
         //   return new Date();
         // });
+		document.getElementById("faucetClaimCaptcha").style = "top: -100px; position: absolute; right: 41%;"
       },
       error: function(xhr, textStatus, errorThrown) {
         if (xhr.responseJSON && xhr.responseJSON.error === 'FAUCET_ALREADY_CLAIMED') {
           alert('You already claimed faucet in last 5 minutes.');
+		  document.getElementById("faucetClaimCaptcha").style = "top: -100px; position: absolute; right: 41%;"
         }
       }
     });
