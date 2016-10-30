@@ -2124,26 +2124,51 @@ var $cardList 	= $('.cardList').first(),
 	  '2X'
 	  )),
 	  el.div(
-	  {className: 'B'},
+	  	  {className: 'B'},
 	  el.div(
 	  {className: 'b'},
 	  'VL'
+	  el.img(
+	  {src: 'http://bitsino.xyz/images/vlcase.png',
+	  width: '200'}
+	  
+	  )
 	  ),
 	  el.div(
 	  {className: 'b'},
 	  'L'
+	  el.img(
+	  {src: 'http://bitsino.xyz/images/lcase.png',
+	  width: '200'}
+	  
+	  )
 	  ),
 	  el.div(
 	  {className: 'b'},
 	  'M'
+	  el.img(
+	  {src: 'http://bitsino.xyz/images/mcase.png',
+	  width: '200'}
+	  
+	  )
 	  ),
 	  el.div(
 	  {className: 'b'},
 	  'H'
+	  el.img(
+	  {src: 'http://bitsino.xyz/images/hcase.png',
+	  width: '200'}
+	  
+	  )
 	  ),
 	  el.div(
 	  {className: 'b'},
 	  'VH'
+	  el.img(
+	  {src: 'http://bitsino.xyz/images/vhcase.png',
+	  width: '200'}
+	  
+	  )
 	  )
 	  ),
 	  el.div(
