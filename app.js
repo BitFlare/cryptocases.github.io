@@ -753,7 +753,8 @@ var UserBox = React.createClass({
         Dispatcher.sendAction('UPDATE_USER', {
           balance: worldStore.state.user.balance + data.amount
         });
-		alert("You have claimed faucet.");
+		var modal = document.getElementById('themodal');
+		modal.style.display = "none";
         // self.props.faucetClaimedAt.update(function() {
         //   return new Date();
         // });
@@ -761,17 +762,27 @@ var UserBox = React.createClass({
       error: function(xhr, textStatus, errorThrown) {
         if (xhr.responseJSON && xhr.responseJSON.error === 'FAUCET_ALREADY_CLAIMED') {
           alert('You already claimed faucet in last 5 minutes.');
+		  var modal = document.getElementById('themodal');
+		modal.style.display = "none";
         }
       }
     });
   },
   _showFaucet: function() {
-	  document.getElementById("faucetClaimCaptcha").innerHTML = "";
-	      grecaptcha.render("faucetClaimCaptcha", {
+	  document.getElementById("modaltext").innerHTML = "";
+	      grecaptcha.render("modaltext", {
         sitekey: "6LempwoUAAAAAFt-1xHrOrQFZs-nZbWaJhYtvBc9",
         callback: this._onRecaptchaSubmit
     })
-	document.getElementById("faucetClaimCaptcha").style = "top: 100px; position: absolute; right: 41%;"
+	document.getElementById('modaltitle').innerHTML = "Faucet";
+	var modal = document.getElementById('themodal');
+	modal.style.display = "block";
+  },
+  _showHowToPlay: function() {
+	var modal = document.getElementById('themodal');
+	modal.style.display = "block";
+	document.getElementById('modaltitle').innerHTML = "How to Play";
+	document.getElementById('modaltext').innerHTML = "First you have to set your wager on left side of the screen, then you have to decide what case you are going to open and just click on it!";
   },
   
   
@@ -1246,6 +1257,10 @@ var ChatBox = React.createClass({
 	);
   }
 });
+
+var ubalance;
+var usname;
+
 
 var BetBoxChance = React.createClass({
   displayName: 'BetBoxChance',
@@ -1774,7 +1789,6 @@ var n = this,
     j = (j = i.length) > 3 ? j % 3 : 0;
    return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
  };
- var uname;
 var BetBox = React.createClass({
   displayName: 'BetBox',
   _onStoreChange: function() {
@@ -1798,7 +1812,7 @@ var BetBox = React.createClass({
 	var tags2 = document.getElementsByName("card2");
 	var tags3 = document.getElementsByName("card3");
 		// Indicate that we are waiting for server response
-	  
+	   
 
       self.setState({ waitingForServer: true });
 
@@ -2278,14 +2292,16 @@ var $cardList 	= $('.cardList').first(),
     };
   },
   
-  render: function() {
+  render: function() {	  
+	  if(worldStore.state.isLoading)
+	  {
 	  return el.div(
 	  null,
 	  el.div(
 	  {className: 'user shadow'},
 	  el.p(
 	  {className: 'username'},
-	  'worldStore.state.user.uname'
+	  'Loading...'
 	  ),
 	  el.div(
 	  {className: 'userbalance'},
@@ -2296,7 +2312,7 @@ var $cardList 	= $('.cardList').first(),
 	  ),
 	  el.b(
 	  {className: 'rounds'},
-	  "(worldStore.state.user.balance / 100)"/*+((worldStore.state.user.balance / 100)).formatMoney(2, '.', ',')*/ + ' bits'
+	  "Loading..."/*+((worldStore.state.user.balance / 100)).formatMoney(2, '.', ',')*/
 	  )
 	  ),
 	  el.div(
@@ -2427,6 +2443,213 @@ var $cardList 	= $('.cardList').first(),
 	  )
 	  )))
 	  );
+	  }
+	  if(worldStore.state.accessToken === undefined)
+	  {
+		  	  return el.div(
+	  null,
+	  el.div(
+	  {className: 'user shadow'},
+	  el.p(
+	  {className: 'username'},
+	  'Please login to continue'
+	  )
+
+	  
+	  ),
+	  el.div(
+	  {className: 'scrolldiv'},
+	  el.div(
+	  {className: 'cardList'},
+	  el.div(
+	  {className: 'card',
+	  id: 'value1',
+	  name: 'card1'},
+	  '0X'
+	  ),
+	  el.div(
+	  {className: 'card',
+	  id: 'value2',
+	  name: 'card2'},
+	  '1.3X'
+	  ),
+	  el.div(
+	  {className: 'card',
+	  id: 'value3',
+	  name: 'card3'},
+	  '2X'
+	  )
+	  )
+	  ),
+	  el.div(
+	  {className: 'caseHolder'},
+	  el.div(
+	  {className: 'casecontainer shadow'},
+	  el.div(
+	  {className: 'casecont_header shadow'},
+	  'Cases'
+	  ),
+	  el.div(
+	  {style: {color: 'white'}},
+	  'Please login to open cases.'
+	  )
+	  ))
+	  );
+		  
+	  }
+	  if(!worldStore.state.isLoading && worldStore.state.accessToken !== undefined)
+	  {
+		  	  return el.div(
+	  null,
+	  el.div(
+	  {className: 'user shadow'},
+	  el.p(
+	  {className: 'username'},
+	  ''+worldStore.state.user.uname
+	  ),
+	  el.div(
+	  {className: 'userbalance'},
+	  el.p(
+	  {className: 'rounds',
+	  style: {marginLeft: 5, marginTop: 20}},
+	  'Balance: '
+	  ),
+	  el.b(
+	  {className: 'rounds'},
+	  " "+((worldStore.state.user.balance / 100)).formatMoney(2, '.', ',') + ' bits'
+	  )
+	  ),
+	  el.div(
+	  {className: 'userwager'},
+	  el.p(
+	  {className: 'rounds',
+	  style: {marginLeft: 5, marginTop: 20}},
+	  'Wager:'
+	  ),
+	  el.input(
+	  {id: 'betwager',
+	  defaultValue: '1',
+	  placeholder: '1'}
+	  )
+	  )
+	  
+	  ),
+	  el.div(
+	  {className: 'scrolldiv'},
+	  el.div(
+	  {className: 'cardList'},
+	  el.div(
+	  {className: 'card',
+	  id: 'value1',
+	  name: 'card1'},
+	  '0X'
+	  ),
+	  el.div(
+	  {className: 'card',
+	  id: 'value2',
+	  name: 'card2'},
+	  '1.3X'
+	  ),
+	  el.div(
+	  {className: 'card',
+	  id: 'value3',
+	  name: 'card3'},
+	  '2X'
+	  )
+	  )
+	  ),
+	  el.div(
+	  {className: 'caseHolder'},
+	  el.div(
+	  {className: 'casecontainer shadow'},
+	  el.div(
+	  {className: 'casecont_header shadow'},
+	  'Cases'
+	  ),
+	  el.div(
+	  {className: 'columns locked-',
+	  onClick: this._makeBet('vl')},
+	  el.div(
+	  {className: 'case-wrapper'},
+	  el.img(
+	  {src: 'http://bitsino.xyz/images/vlcase.png'}
+	  
+	  ),
+	  el.span(
+	  {className: 'title'},
+	  'Very Low Case'
+	  )
+	  )
+	  ),
+	  el.div(
+	  {className: 'columns locked-',
+	  onClick: this._makeBet('l')},
+	  el.div(
+	  {className: 'case-wrapper'},
+	  el.img(
+	  {src: 'http://bitsino.xyz/images/lcase.png'}
+	  
+	  ),
+	  el.span(
+	  {className: 'title'},
+	  'Low Case'
+	  )
+	  )
+	  ),
+	  el.div(
+	  {id: 'caseHolder2'},
+	 
+	  el.div(
+	  {className: 'columns locked-',
+	  onClick: this._makeBet('m')},
+	  el.div(
+	  {className: 'case-wrapper'},
+	  el.img(
+	  {src: 'http://bitsino.xyz/images/mcase.png'}
+	  
+	  ),
+	  el.span(
+	  {className: 'title'},
+	  'Medium Case'
+	  )
+	  )
+	  )),
+	  	  el.div(
+	  {id: 'caseHolder3'},
+	  el.div(
+	  {className: 'columns locked-',
+	  onClick: this._makeBet('h')},
+	  el.div(
+	  {className: 'case-wrapper'},
+	  el.img(
+	  {src: 'http://bitsino.xyz/images/hcase.png'}
+	  
+	  ),
+	  el.span(
+	  {className: 'title'},
+	  'High Case'
+	  )
+	  )
+	  ),
+	  el.div(
+	  {className: 'columns locked-',
+	  onClick: this._makeBet('vh')},
+	  el.div(
+	  {className: 'case-wrapper'},
+	  el.img(
+	  {src: 'http://bitsino.xyz/images/vhcase.png'}
+	  
+	  ),
+	  el.span(
+	  {className: 'title'},
+	  'Very High Case'
+	  )
+	  )
+	  )
+	  )))
+	  );
+		  
+	  }
     /*return el.div(
       null,  
 	  el.div(
@@ -3176,7 +3399,34 @@ var App = React.createClass({
 	     el.div(
           {className: ''},
           React.createElement(ChatBox, null)
-        )
+        ),
+		//Modal
+		el.div(
+		{id: 'themodal',
+		className: 'modal'},
+		el.div(
+		{className: 'modal-content'},
+		el.div(
+		{className: 'modal-header'},
+		el.span(
+		{className: 'close',
+		id: 'closebtn'},
+		'×'
+		),
+		el.h2(
+		{id: 'modaltitle'},
+		'Loading..'
+		)
+		),
+		el.div(
+		{className: 'modal-body'},
+		el.p(
+		{id: 'modaltext'},
+		'Loading..'
+		)
+		)
+		)
+		)
 	/*
       // BetBox & ChatBox
       el.div(

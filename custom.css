@@ -128,7 +128,7 @@ i {
 
 .cardList {
 	height: 175px;
-	width: 604px;
+	width: 302px;
 	position: relative;
 	margin: 10px;
 	border: 1px solid #33e;
@@ -141,7 +141,7 @@ i {
 	display: inline-block;
 	text-align: center;
 	height: 175px;
-	width: 200px;
+	width: 100px;
 	line-height: 100px;
 	background-color: #99e;
 	vertical-align: middle;
