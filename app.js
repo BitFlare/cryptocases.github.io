@@ -2527,9 +2527,7 @@ var $cardList 	= $('.cardList').first(),
 	  'Wager:'
 	  ),
 	  el.input(
-	  {id: 'betwager',
-	  defaultValue: '1',
-	  placeholder: '1'}
+	  {id: 'betwager'}
 	  )
 	  )
 	  
