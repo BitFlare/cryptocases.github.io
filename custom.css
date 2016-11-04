@@ -207,9 +207,9 @@ div.controls input {
 	margin-right: 10px;
 }
 .chatDiv {
-	position: relative;
-	left: 5%;
-	top: 250px;
+	position: absolute;
+	left: 4.5%;
+	top: 527px;
 }
 .title {
 	font-weight: bold;
