@@ -757,12 +757,10 @@ var UserBox = React.createClass({
         // self.props.faucetClaimedAt.update(function() {
         //   return new Date();
         // });
-		document.getElementById("faucetClaimCaptcha").style = "top: -100px; position: absolute; right: 41%;"
       },
       error: function(xhr, textStatus, errorThrown) {
         if (xhr.responseJSON && xhr.responseJSON.error === 'FAUCET_ALREADY_CLAIMED') {
           alert('You already claimed faucet in last 5 minutes.');
-		  document.getElementById("faucetClaimCaptcha").style = "top: -100px; position: absolute; right: 41%;"
         }
       }
     });
@@ -795,139 +793,54 @@ var UserBox = React.createClass({
 
     var innerNode;
     if (worldStore.state.isLoading) {
-      innerNode = el.p(
-        {className: 'navbar-text'},
+      innerNode = el.ul(
+        {className: 'navbar'},
         'Loading...'
       );
     } else if (worldStore.state.user) {
-      innerNode = el.div(
-        null,
-
-	  el.div(
-	  {className: 'A'},
-		el.div(
-		{className: 'a'},
-		'Balance: '+((worldStore.state.user.balance / 100)).formatMoney(2, '.', ',') + ' bits'
-		),
-		el.div(
-		{className: 'a',
+      innerNode = el.ul(
+	  {className: 'navbar'},
+		el.li(
+		{className: 'navitem',
 		onClick: this._openDepositPopup},
-		'Deposit'
+		'DEPOSIT'
 		),
-		el.div(
-		{className: 'a',
-		onClick: this._openWithdrawPopup},
-		'Withdraw'
+		el.li(
+		{className: 'navitem',
+		onClick: this._openWithdrawPopup},	
+		'WITHDRAW'
 		),
-		el.div(
-		{id: 'faucetButton',
-			className: 'a',
-		onClick: this._showFaucet},
-		'Faucet'
-		),	  
-        el.div(
-          {
-            className: 'a',
-            onClick: this._onLogout
-          },
-          'Logout'
-        )
-	  ));
-        // Deposit/Withdraw popup buttons
-       /* el.div(
-          {className: 'btn-group navbar-left btn-group-xs'},
-          el.button(
-            {
-              type: 'button',
-              className: 'btn navbar-btn btn-xs ' + (betStore.state.wager.error === 'CANNOT_AFFORD_WAGER' ? 'btn-success' : 'btn-default'),
-              onClick: this._openDepositPopup
-            },
-            'Deposit'
-          ),
-          el.button(
-            {
-              type: 'button',
-              className: 'btn btn-default navbar-btn btn-xs',
-              onClick: this._openWithdrawPopup
-            },
-            'Withdraw'
-          )
-        ),
-        // Balance
-        el.span(
-          {
-            className: 'navbar-text',
-            style: {marginRight: '5px'}
-          },
-          (worldStore.state.user.balance / 100) + ' bits',
-          !worldStore.state.user.unconfirmed_balance ?
-           '' :
-           el.span(
-             {style: { color: '#e67e22'}},
-             ' + ' + (worldStore.state.user.unconfirmed_balance / 100) + ' bits pending'
-           )
-        ),
-        // Refresh button
-        el.button(
-          {
-            className: 'btn btn-link navbar-btn navbar-left ' + (worldStore.state.isRefreshingUser ? ' rotate' : ''),
-            title: 'Refresh Balance',
-            disabled: worldStore.state.isRefreshingUser,
-            onClick: this._onRefreshUser,
-            style: {
-              paddingLeft: 0,
-              paddingRight: 0,
-              marginRight: '10px'
-            }
-          },
-          el.span({className: 'glyphicon glyphicon-refresh'})
-        ),
-        // Logged in as...
-        el.span(
-          {className: 'navbar-text'},
-          'Logged in as ',
-          el.code(null, worldStore.state.user.uname)
-        ),
-        // Logout button
-        el.button(
-          {
-            type: 'button',
-            onClick: this._onLogout,
-            className: 'navbar-btn btn btn-default'
-          },
-          'Logout'
-        )
-      );*/
+		el.li(
+		{className: 'navitem',
+		onClick: this._showFaucet,
+		id: 'faucetButton'},
+		'FAUCET'
+		),
+		el.li(
+		{className: 'navitem',
+		id: 'htpbutton',
+		onClick: this._showHowToPlay},
+		'HOW TO PLAY'
+		),
+		el.li(
+		{className: 'navitem',
+		onClick: this._onLogout},
+		'LOG OUT'
+		));
     } else {
-      // User needs to login
-      innerNode = el.div(
-	  {className: 'A'},
-		el.div(
-		{className: 'a'},
-		''
-		),
-		el.div(
-		{className: 'a'},
-		''
-		),
-		el.div(
-		{className: 'a'},
-		''
-		),
-		el.div(
-		{className: 'a'},
-		''
-		),  
-        el.a(
+		      innerNode = el.div(
+			  {className: 'navbar'},
+			  
+		el.a(
           {
-            className: 'a',
+            className: 'navitem',
 			href: config.mp_browser_uri + '/oauth/authorize' +
 			'?app_id=' + config.app_id +
 		  '&redirect_uri=' + config.redirect_uri
           },
-          'Login with MoneyPot'
-        )
-	  );
+          'Login with MoneyPot'		
+		)
+		);
     }
 
     return el.div(
@@ -1017,7 +930,54 @@ var ChatBoxInput = React.createClass({
   },
   render: function() {
     return (
-      el.div(
+	el.div(
+	{className: 'chatDiv'},
+	el.div(
+	{className: 'chatidk shadow'},
+	el.div(
+	{className: 'chat_header shadow'},
+	el.p(
+	{className: 'title'},
+	'Chat'
+	),
+	el.p(
+	{className: 'total'},
+	'Online: '+Object.keys(chatStore.state.userList).length
+	)
+	),
+	el.div(
+          chatStore.state.loadingInitialMessages ?
+            el.div(
+              {
+                style: {marginTop: '7px'},
+                className: 'text-muted'
+              },
+              el.span(
+                {className: 'glyphicon glyphicon-refresh rotate'}
+              ),
+              ' Loading...'
+            )
+		:
+		      el.input(
+              {
+                id: 'chat-input',
+                type: 'text',
+                value: this.state.text,
+                placeholder: worldStore.state.user ?
+                  'Click here and begin typing...' :
+                  'Login to chat',
+                onChange: this._onChange,
+                onKeyPress: this._onKeyPress,
+                onFocus: this._onFocus,
+                ref: 'input',
+                // TODO: disable while fetching messages
+                disabled: !worldStore.state.user || chatStore.state.loadingInitialMessages
+              }
+            )
+	
+	)
+	))
+    /*  el.div(
         {className: 'row'},
         el.div(
           {className: 'col-md-9'},
@@ -1051,7 +1011,7 @@ var ChatBoxInput = React.createClass({
               }
             )
         )
-      )
+      )*/
     );
   }
 });
@@ -1060,12 +1020,6 @@ var ChatUserList = React.createClass({
   displayName: 'ChatUserList',
   render: function() {
     return (
-      el.div(
-        {className: ''},
-        el.div(
-          {className: 'panel-heading'},
-          'UserList'
-        ),
         el.div(
           {className: 'panel-body'},
           el.ul(
@@ -1081,7 +1035,6 @@ var ChatUserList = React.createClass({
             })
           )
         )
-      )
     );
   }
 });
@@ -1126,13 +1079,128 @@ var ChatBox = React.createClass({
   _onUserListToggle: function() {
     Dispatcher.sendAction('TOGGLE_CHAT_USERLIST');
   },
+//kek
+  componentDidMount: function() {
+    chatStore.on('change', this._onStoreChange);
+    worldStore.on('change', this._onStoreChange);
+  },
+  componentWillUnmount: function() {
+    chatStore.off('change', this._onStoreChange);
+    worldStore.off('change', this._onStoreChange);
+  },
+  //
+  getInitialState: function() {
+    return { text: '' };
+  },
+  // Whenever input changes
+  _onChange: function(e) {
+    this.setState({ text: e.target.value });
+  },
+  // When input contents are submitted to chat server
+  _onSend: function() {
+    var self = this;
+    Dispatcher.sendAction('SEND_MESSAGE', this.state.text);
+    this.setState({ text: '' });
+  },
+  _onFocus: function() {
+    // When users click the chat input, turn off bet hotkeys so they
+    // don't accidentally bet
+    if (worldStore.state.hotkeysEnabled) {
+      Dispatcher.sendAction('DISABLE_HOTKEYS');
+    }
+  },
+  _onKeyPress: function(e) {
+    var ENTER = 13;
+    if (e.which === ENTER) {
+      if (this.state.text.trim().length > 0) {
+        this._onSend();
+      }
+    }
+  },
   render: function() {
     return el.div(
+	{className: 'chatDiv'},
+	el.div( 
+	{className: 'chatidk shadow'},
+	el.div(
+	{className: 'chat_header shadow'},
+	el.p(
+	{className: 'title'},
+	'Chat'
+	),
+	el.p(
+	{className: 'total'},
+	''+Object.keys(chatStore.state.userList).length+' Online'
+	)
+	),
+	el.ul(
+	{className: 'chat-list list-unstyled', ref: 'chatListRef'},
+	            chatStore.state.messages.toArray().map(function(m) {
+              return el.li(
+                {
+                  // Use message id as unique key
+                  key: m.id
+                },
+                el.span(
+                  {
+                    style: {
+                      fontFamily: 'monospace'
+                    }
+                  },
+                  helpers.formatDateToTime(m.created_at),
+                  ' '
+                ),
+                m.user ? helpers.roleToLabelElement(m.user.role) : '',
+                m.user ? ' ' : '',
+                el.code(
+                  null,
+                  m.user ?
+                    // If chat message:
+                    m.user.uname :
+                    // If system message:
+                    'SYSTEM :: ' + m.text
+                ),
+                m.user ?
+                  // If chat message
+                  el.span(null, ' ' + m.text) :
+                  // If system message
+                  ''
+              );
+            })
+	),
+        el.div(
+          {className: ''},
+          el.input(
+              {
+                id: 'chat-input',
+                type: 'text',
+                value: this.state.text,
+                placeholder: worldStore.state.user ?
+                  'Click here and begin typing...' :
+                  'Login to chat',
+                onChange: this._onChange,
+                onKeyPress: this._onKeyPress,
+                onFocus: this._onFocus,
+                ref: 'input',
+                // TODO: disable while fetching messages
+                disabled: !worldStore.state.user || chatStore.state.loadingInitialMessages
+              }
+            )
+        )
+	
+	) 
+	
+	
+	
+	
+	
+	/*
+	el.div(
       {id: 'chat-box'},
       el.div(
         {className: ''},
         el.div(
-          {className: 'panel-body'},
+          {className: ''},
           el.ul(
             {className: 'chat-list list-unstyled', ref: 'chatListRef'},
             chatStore.state.messages.toArray().map(function(m) {
@@ -1173,7 +1241,7 @@ var ChatBox = React.createClass({
           {className: ''},
           React.createElement(ChatBoxInput, null)
         )
-      )
+      )*/
       // Show userli
 	);
   }
@@ -1706,7 +1774,7 @@ var n = this,
     j = (j = i.length) > 3 ? j % 3 : 0;
    return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
  };
- 
+ var uname;
 var BetBox = React.createClass({
   displayName: 'BetBox',
   _onStoreChange: function() {
@@ -1739,7 +1807,7 @@ var BetBox = React.createClass({
 	        console.assert(typeof hash === 'string');
  
 	
-      var wagerSatoshis = prompt("What is your wager?", "100") * 100;
+      var wagerSatoshis = document.getElementById("betwager").value * 100;
 	  if(caset === 'vl') {
 		  for (var i = 0; i < 50; i++) {
 			  				if(tags1[i] === undefined || tags2[i] === undefined || tags3[i] === undefined) continue;
@@ -2209,8 +2277,157 @@ var $cardList 	= $('.cardList').first(),
       };
     };
   },
+  
   render: function() {
-    return el.div(
+	  return el.div(
+	  null,
+	  el.div(
+	  {className: 'user shadow'},
+	  el.p(
+	  {className: 'username'},
+	  'worldStore.state.user.uname'
+	  ),
+	  el.div(
+	  {className: 'userbalance'},
+	  el.p(
+	  {className: 'rounds',
+	  style: {marginLeft: 5, marginTop: 20}},
+	  'Balance:'
+	  ),
+	  el.b(
+	  {className: 'rounds'},
+	  "(worldStore.state.user.balance / 100)"/*+((worldStore.state.user.balance / 100)).formatMoney(2, '.', ',')*/ + ' bits'
+	  )
+	  ),
+	  el.div(
+	  {className: 'userwager'},
+	  el.p(
+	  {className: 'rounds',
+	  style: {marginLeft: 5, marginTop: 20}},
+	  'Wager:'
+	  ),
+	  el.input(
+	  {id: 'betwager',
+	  value: '1'}
+	  )
+	  )
+	  
+	  ),
+	  el.div(
+	  {className: 'scrolldiv'},
+	  el.div(
+	  {className: 'cardList'},
+	  el.div(
+	  {className: 'card',
+	  id: 'value1',
+	  name: 'card1'},
+	  '0X'
+	  ),
+	  el.div(
+	  {className: 'card',
+	  id: 'value2',
+	  name: 'card2'},
+	  '1.3X'
+	  ),
+	  el.div(
+	  {className: 'card',
+	  id: 'value3',
+	  name: 'card3'},
+	  '2X'
+	  )
+	  )
+	  ),
+	  el.div(
+	  {className: 'caseHolder'},
+	  el.div(
+	  {className: 'casecontainer shadow'},
+	  el.div(
+	  {className: 'casecont_header shadow'},
+	  'Cases'
+	  ),
+	  el.div(
+	  {className: 'columns locked-',
+	  onClick: this._makeBet('vl')},
+	  el.div(
+	  {className: 'case-wrapper'},
+	  el.img(
+	  {src: 'http://bitsino.xyz/images/vlcase.png'}
+	  
+	  ),
+	  el.span(
+	  {className: 'title'},
+	  'Very Low Case'
+	  )
+	  )
+	  ),
+	  el.div(
+	  {className: 'columns locked-',
+	  onClick: this._makeBet('l')},
+	  el.div(
+	  {className: 'case-wrapper'},
+	  el.img(
+	  {src: 'http://bitsino.xyz/images/lcase.png'}
+	  
+	  ),
+	  el.span(
+	  {className: 'title'},
+	  'Low Case'
+	  )
+	  )
+	  ),
+	  el.div(
+	  {id: 'caseHolder2'},
+	 
+	  el.div(
+	  {className: 'columns locked-',
+	  onClick: this._makeBet('m')},
+	  el.div(
+	  {className: 'case-wrapper'},
+	  el.img(
+	  {src: 'http://bitsino.xyz/images/mcase.png'}
+	  
+	  ),
+	  el.span(
+	  {className: 'title'},
+	  'Medium Case'
+	  )
+	  )
+	  )),
+	  	  el.div(
+	  {id: 'caseHolder3'},
+	  el.div(
+	  {className: 'columns locked-',
+	  onClick: this._makeBet('h')},
+	  el.div(
+	  {className: 'case-wrapper'},
+	  el.img(
+	  {src: 'http://bitsino.xyz/images/hcase.png'}
+	  
+	  ),
+	  el.span(
+	  {className: 'title'},
+	  'High Case'
+	  )
+	  )
+	  ),
+	  el.div(
+	  {className: 'columns locked-',
+	  onClick: this._makeBet('vh')},
+	  el.div(
+	  {className: 'case-wrapper'},
+	  el.img(
+	  {src: 'http://bitsino.xyz/images/vhcase.png'}
+	  
+	  ),
+	  el.span(
+	  {className: 'title'},
+	  'Very High Case'
+	  )
+	  )
+	  )
+	  )))
+	  );
+    /*return el.div(
       null,  
 	  el.div(
 	  {className: 'cardList'},
@@ -2307,7 +2524,7 @@ var $cardList 	= $('.cardList').first(),
 	  },
 	  'OPEN (VERY HIGH)'
 	  )	  
-	  )
+	  )*/
 	  
 	  /*el.div(
 	  {className: 'D'},
@@ -2438,8 +2655,7 @@ var $cardList 	= $('.cardList').first(),
 		)
 		))
 	)*/
-	
-	);
+
   }
 });
 
@@ -2946,29 +3162,41 @@ var App = React.createClass({
 
   render: function() {
     return el.div(
-      {},
-	  el.div(
+	null,
+	
+	el.div(
 	  null,
-	  
-      React.createElement(UserBox, null)
+	  React.createElement(UserBox, null)
 	),
+	
+	     el.div(
+          {className: ''},
+          React.createElement(BetBox, null)
+        ),
+	     el.div(
+          {className: ''},
+          React.createElement(ChatBox, null)
+        )
+	/*
       // BetBox & ChatBox
       el.div(
-        {className: 'row'},
+        {className: ''},
         el.div(
           {className: ''},
           React.createElement(BetBox, null)
         ),
 		el.div(
-		{className: 'col-sm-7'},
-		React.createElement(ChatBox, null)
+		{className: ''},
+		//React.createElement(ChatBox, null)
+		''
 		),
 		 el.div(
 	  {id: 'faucetClaimCaptcha'},
 	  ''
 	  )
 		)
-    );
+    */
+	);
   }
 });
 
