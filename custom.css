@@ -10,6 +10,8 @@ body {
 	background-image: url('https://s3-us-west-2.amazonaws.com/nickdesign/csgobg.png')
 }
 
+
+
 /*Navbar*/
 
 nav {
@@ -25,7 +27,7 @@ nav {
 	/* IE6-9 */
 	width: 100%;
 	color: #ffffff;
-	height: 50px;
+	height: 1%;
 	-webkit-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.4);
 	-moz-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.4);
 	box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.4);
@@ -43,26 +45,26 @@ i {
 	background-color: #5c6165;
 }
 .navbar {
-	width: 1200px;
+	width: 62.5%;
 	margin-left: auto;
 	margin-right: auto;
 	border-collapse: collapse;
 }
 .navitem {
-	width: 64px;
-	height: 50px;
+	width: 3.33%;
+	height: 4.62%;
 	display: inline-block;
 	vertical-align: top;
 	padding-top: 12px;
 	transition: background-color 0.2s;
 }
 .navitem {
-	width: 235px;
+	width: 20%;
 	display: inline-block;
 	border-right: 3px solid #23282e;
 	border-collapse: collapse;
 	font-weight: bold;
-	height: 50px;
+	height: 4.62p%;
 	text-align: center;
 	font-size: 20px;
 	padding: 10px 0px;
@@ -76,7 +78,7 @@ i {
 	background-color: #5c6165;
 }
 .username {
-	margin-top: 8px;
+	margin-top: 0.74%;
 	display: inline-block;
 	vertical-align: top;
 	margin-left: 8px;
@@ -91,7 +93,7 @@ i {
 .scrolldiv {
 	background-color: #2f3841;
 	position: relative;
-	width: 935px;
+	width: 48.69%;
 	height: 174px;
 	padding: 10px;
 	display: inline-block;
@@ -101,12 +103,12 @@ i {
 }
 .user {
 	background-color: #3d464d;
-	width: 300px;
+	width: 15.62%;
 	margin-bottom: 30px;
 	display: inline-block;
 	position: relative;
 	vertical-align: top;
-	height: 175px;
+	height: 16.203%;
 	right: -85px;
 	top: 200px;
 	border: 2px solid #515a63;
@@ -128,7 +130,7 @@ i {
 
 .cardList {
 	height: 175px;
-	width: 302px;
+	width: 32.5%;
 	position: relative;
 	margin: 10px;
 	border: 1px solid #33e;
@@ -185,7 +187,7 @@ div.controls input {
 	font-family: monospace;
 }
 .chatidk {
-	width: 300px;
+	width: 66.6%;
 	height: 500px;
 	background-color: #172430;
 	border: 2px solid #1e2a36;
@@ -228,10 +230,17 @@ div.controls input {
 	left: 70px;
 	bottom: 2px;
 }
+
+#test2 {
+	position: relative;
+	right: -8%;
+
+}
+
 .casecontainer {
 	position: absolute;
 	display: inline-block;
-	width: 935px;
+	width: 49.2%;
 	height: 500px;
 	background-color: #303942;
 	right: 20.2%;
