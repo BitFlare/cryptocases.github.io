@@ -2563,7 +2563,7 @@ var BetBox = React.createClass({
                                 className: 'casecont_header shadow'
                             },
                             'Cases'
-                        ),,
+                        ),
 
                         el.div(
                           {
