@@ -230,11 +230,7 @@ div.controls input {
 	left: 70px;
 	bottom: 2px;
 }
-.columns {
-	position: relative;
-	width: 100%;
 
-}
 
 
 
@@ -256,7 +252,15 @@ div.controls input {
 	background-color: #303942;
 	right: 20.2%;
 	top: 527px;
+	display: table;
 }
+
+.columns {
+display: table-cell;
+
+}
+
+
 .casecont_header {
 	color: #8cbade;
 	background-color: #2e3740;
@@ -439,18 +443,13 @@ div.controls input {
 	color: rgba(128, 128, 128, 1);
 	transition: all .25s;
 }
+
 #caseHolder2 {
 	position: relative;
-	top: -300px;
-	right: -260px;
-	width: 100%;
+	right: -13%;
 }
-#caseHolder3 {
-	position: relative;
-	top: -610px;
-	right: -520px;
-	width: 100%;
-}
+
+
 
 #chat-input {
 

@@ -2567,7 +2567,7 @@ var BetBox = React.createClass({
 
                         el.div(
                           {
-                                  className: 'casesthing'
+                                  id: 'test2'
                               },
                         el.div({
                                 className: 'columns locked- caselol',
@@ -2829,7 +2829,7 @@ var BetBox = React.createClass({
 
 el.div(
   {
-          className: 'casesthing'
+          id: 'test2'
       },
 
 
