@@ -2564,10 +2564,6 @@ var BetBox = React.createClass({
                             },
                             'Cases'
                         ),
-                        el.div(
-                            {id: 'test2'},
-                            el.div(
-                              {id: 'actualcases'},
 
 
                         el.div({
@@ -2672,7 +2668,7 @@ var BetBox = React.createClass({
                                     )
                                 )
                             )
-                        )))))
+                        )))
             );
         }
         if (worldStore.state.accessToken === undefined) {
@@ -2827,10 +2823,6 @@ var BetBox = React.createClass({
                             },
                             'Cases'
                         ),
-                        el.div(
-                            {id: 'test2'},
-                            el.div(
-{className: 'actualcases'},
 
 
 
@@ -2936,7 +2928,7 @@ var BetBox = React.createClass({
                                     )
                                 )
                             )
-                        )))))
+                        )))
             );
 
         }
