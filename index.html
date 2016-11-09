@@ -37,6 +37,25 @@ console.log("klik")
 $("#closebtn").click(function() {
 	document.getElementById('themodal').style.display = "none";
 });
+function scale() {
+  $('.scaled').each(function() {
+    var scaled = $(this),
+      parent = scaled.parent(),
+      ratio = (parent.width() / scaled.width()),
+      padding = scaled.height() * ratio;
 
+    scaled.css({
+      'transform': 'scale(' + ratio + ')',
+      'transform-origin': 'top left'
+    });
+
+    parent.css('padding-top', padding); // keeps the parent height in ratio to child resize
+  })
+}
+
+scale();
+$(window).resize(function() {
+  scale();
+});
   </script>
 </body>
