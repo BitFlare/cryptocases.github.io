@@ -2563,9 +2563,12 @@ var BetBox = React.createClass({
                                 className: 'casecont_header shadow'
                             },
                             'Cases'
-                        ),
+                        ),,
 
-
+                        el.div(
+                          {
+                                  className: 'casesthing'
+                              },
                         el.div({
                                 className: 'columns locked- caselol',
                                 onClick: this._makeBet('vl')
@@ -2668,7 +2671,7 @@ var BetBox = React.createClass({
                                     )
                                 )
                             )
-                        )))
+                        ))))
             );
         }
         if (worldStore.state.accessToken === undefined) {
@@ -2824,6 +2827,10 @@ var BetBox = React.createClass({
                             'Cases'
                         ),
 
+el.div(
+  {
+          className: 'casesthing'
+      },
 
 
                         el.div({
@@ -2928,7 +2935,7 @@ var BetBox = React.createClass({
                                     )
                                 )
                             )
-                        )))
+                        ))))
             );
 
         }
