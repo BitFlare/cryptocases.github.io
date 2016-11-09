@@ -2568,7 +2568,7 @@ var BetBox = React.createClass({
                             {id: 'test2'},
 
                         el.div({
-                                className: 'columns locked-',
+                                className: 'columns locked- caselol',
                                 onClick: this._makeBet('vl')
                             },
                             el.div({
@@ -2587,7 +2587,7 @@ var BetBox = React.createClass({
                             )
                         ),
                         el.div({
-                                className: 'columns locked-',
+                                className: 'columns locked- caselol',
                                 onClick: this._makeBet('l')
                             },
                             el.div({
@@ -2610,7 +2610,7 @@ var BetBox = React.createClass({
                             },
 
                             el.div({
-                                    className: 'columns locked-',
+                                    className: 'columns locked- caselol',
                                     onClick: this._makeBet('m')
                                 },
                                 el.div({
@@ -2632,7 +2632,7 @@ var BetBox = React.createClass({
                                 id: 'caseHolder3'
                             },
                             el.div({
-                                    className: 'columns locked-',
+                                    className: 'columns locked- caselol',
                                     onClick: this._makeBet('h')
                                 },
                                 el.div({
@@ -2651,7 +2651,7 @@ var BetBox = React.createClass({
                                 )
                             ),
                             el.div({
-                                    className: 'columns locked-',
+                                    className: 'columns locked- caselol',
                                     onClick: this._makeBet('vh')
                                 },
                                 el.div({
@@ -2827,7 +2827,7 @@ var BetBox = React.createClass({
                         el.div(
                             {id: 'test2'},
                         el.div({
-                                className: 'columns locked-',
+                                className: 'columns locked- caselol',
                                 onClick: this._makeBet('vl')
                             },
                             el.div({
@@ -2846,7 +2846,7 @@ var BetBox = React.createClass({
                             )
                         ),
                         el.div({
-                                className: 'columns locked-',
+                                className: 'columns locked- caselol',
                                 onClick: this._makeBet('l')
                             },
                             el.div({
@@ -2869,7 +2869,7 @@ var BetBox = React.createClass({
                             },
 
                             el.div({
-                                    className: 'columns locked-',
+                                    className: 'columns locked- caselol',
                                     onClick: this._makeBet('m')
                                 },
                                 el.div({
@@ -2891,7 +2891,7 @@ var BetBox = React.createClass({
                                 id: 'caseHolder3'
                             },
                             el.div({
-                                    className: 'columns locked-',
+                                    className: 'columns locked- caselol',
                                     onClick: this._makeBet('h')
                                 },
                                 el.div({
@@ -2910,7 +2910,7 @@ var BetBox = React.createClass({
                                 )
                             ),
                             el.div({
-                                    className: 'columns locked-',
+                                    className: 'columns locked- caselol',
                                     onClick: this._makeBet('vh')
                                 },
                                 el.div({

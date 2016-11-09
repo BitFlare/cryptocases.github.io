@@ -130,7 +130,7 @@ i {
 
 .cardList {
 	height: 175px;
-	width: 32.5%;
+	width: 33.9%;
 	position: relative;
 	margin: 10px;
 	border: 1px solid #33e;
@@ -230,12 +230,23 @@ div.controls input {
 	left: 70px;
 	bottom: 2px;
 }
+.columns {
+	position: relative;
+	width: 100%;
+
+}
+
+
 
 #test2 {
 	position: relative;
 	right: -8%;
 
+
 }
+
+#test2 {padding-left: 2px; padding-right: 2px; margin-left: 2px; margin-right: 2px;}
+
 
 .casecontainer {
 	position: absolute;
@@ -432,11 +443,13 @@ div.controls input {
 	position: relative;
 	top: -300px;
 	right: -260px;
+	width: 100%;
 }
 #caseHolder3 {
 	position: relative;
 	top: -610px;
 	right: -520px;
+	width: 100%;
 }
 
 #chat-input {
