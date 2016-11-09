@@ -204,14 +204,14 @@ div.controls input {
 .chat_border {
 	background-color: #000000;
 	height: 1px;
-	width: 280px;
+	width: 15%;
 	margin-left: 10px;
 	margin-right: 10px;
 }
 .chatDiv {
 	position: absolute;
 	left: 4.5%;
-	top: 527px;
+	top: 79.99%;
 }
 .title {
 	font-weight: bold;
