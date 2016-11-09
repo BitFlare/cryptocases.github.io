@@ -2566,6 +2566,9 @@ var BetBox = React.createClass({
                         ),
                         el.div(
                             {id: 'test2'},
+                            el.div(
+                              {id: 'actualcases'},
+
 
                         el.div({
                                 className: 'columns locked- caselol',
@@ -2669,7 +2672,7 @@ var BetBox = React.createClass({
                                     )
                                 )
                             )
-                        ))))
+                        )))))
             );
         }
         if (worldStore.state.accessToken === undefined) {
@@ -2826,6 +2829,11 @@ var BetBox = React.createClass({
                         ),
                         el.div(
                             {id: 'test2'},
+                            el.div(
+{className: 'actualcases'},
+
+
+
                         el.div({
                                 className: 'columns locked- caselol',
                                 onClick: this._makeBet('vl')
@@ -2928,7 +2936,7 @@ var BetBox = React.createClass({
                                     )
                                 )
                             )
-                        ))))
+                        )))))
             );
 
         }
