@@ -2565,8 +2565,8 @@ var BetBox = React.createClass({
                             'Cases'
                         ),
                         el.div(
-                            {id: 'casecont_content'},
-
+                            {className: 'casecont_content'},
+''
                         el.div({
                                 className: 'columns locked-',
                                 onClick: this._makeBet('vl')
