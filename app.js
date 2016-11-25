@@ -2,13 +2,13 @@
 // Customize these configuration settings:
 var config = {
     // - Your app's id on moneypot.com
-    app_id: 2369, // <----------------------------- EDIT ME!
+    app_id: 2462, // <----------------------------- EDIT ME!
     // - Displayed in the navbar
     app_name: 'CryptoCases',
     // - For your faucet to work, you must register your site at Recaptcha
     // - https://www.google.com/recaptcha/intro/index.html
-    recaptcha_sitekey: '6LempwoUAAAAAFt-1xHrOrQFZs-nZbWaJhYtvBc9', // <----- EDIT ME!
-    redirect_uri: 'http://cryptocases.pw',
+    recaptcha_sitekey: '6Le_aQwUAAAAADuWbEEenttK6hgPDJva37C20fB0', // <----- EDIT ME!
+    redirect_uri: 'http://flareus.ga',
     mp_browser_uri: 'https://www.moneypot.com',
     mp_api_uri: 'https://api.moneypot.com',
     chat_uri: 'https://socket.moneypot.com',
