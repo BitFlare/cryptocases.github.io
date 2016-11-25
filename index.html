@@ -1,1 +1,61 @@
-<iframe src="https://www.lewd.sx"></iframe>​
+<!doctype html>
+<head>
+  <title>CryptoCases</title>
+  <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+  <link href="custom.css" rel="stylesheet"> <!-- Recommendation: Put your CSS customizations in custom.css -->
+</head>
+<script>if (/Mobi/.test(navigator.userAgent)) {
+    alert("Sorry this page isnt supported on mobile devices yet!");
+   document.location.href = "http://google.com";
+}</script>
+<body>
+  <div id="app"></div>
+  <script src="node_modules/react/dist/react.js"></script>
+  <script src="node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="node_modules/CBuffer/cbuffer.js"></script>
+  <script src="vendor/cryptojs-sha256-3.1.2.js"></script>
+  <script src="node_modules/socket.io-client/socket.io.js"></script>
+  <script src="vendor/lodash.min.js" type="text/javascript"></script>
+  <script src="node_modules/wolfy87-eventemitter/EventEmitter.js"></script>
+  <script src="node_modules/bootstrap/js/tooltip.js"></script>
+  <script src="node_modules/bootstrap/js/popover.js"></script>
+  <script src="app.js" type="text/javascript"></script>
+  <script src="//www.google.com/recaptcha/api.js?render=explicit&onload=onRecaptchaLoad" async defer></script>
+  <script>
+  var $cards = $('.card'),
+    $speed = $('input[name=speed]'),
+	$cardList 	= $('.cardList').first();
+for (var i = 0; i < 50; i++) {
+    $cards.clone().appendTo($cardList);
+}
+$("#faucetButton").click(function() {
+console.log("klik")
+	document.getElementById("faucetClaimCaptcha").style = "top: 100px; position: absolute; right: 47%; background-color: red;"
+});
+$("#closebtn").click(function() {
+	document.getElementById('themodal').style.display = "none";
+});
+function scale() {
+  $('.scaled').each(function() {
+    var scaled = $(this),
+      parent = scaled.parent(),
+      ratio = (parent.width() / scaled.width()),
+      padding = scaled.height() * ratio;
+
+    scaled.css({
+       'transform': 'scale(' + ratio + ')',
+      'transform-origin': 'top left'
+     });
+ 
+     parent.css('padding-top', padding); // keeps the parent height in ratio to child resize
+   })
+ }
+ 
+ scale();
+ $(window).resize(function() {
+   scale();
+ });
+   </script>
+ </body>
